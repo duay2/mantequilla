@@ -12,7 +12,7 @@ public class Operador {
     
     public String SacarCurp(String lastnameDad, String lastnameMom, String name, String dayborn, String monthborn, String yearborn, String gender, String state){
         String curp="";
-        //SACAR LAS LETRAS DEL APELLIDO PATERNO(2 PRIMERAS LETRAS DE 16)
+        //SACAR LAS LETRAS DEL APELLIDO PATERNO(2 PRIMERAS LETRAS DE 18)
         lastnameDad = lastnameDad.toUpperCase().trim().toUpperCase()
                .replace("!", " ").replace("#", "").replace(">", "")
                .replace("$", "").replace("%", "").replace("&", "")
@@ -27,7 +27,7 @@ public class Operador {
                .replace("<", "");
         char [] letters = lastnameDad.toCharArray();
         curp+= letters[0];
-        
+        //Saber las vocales
         char [] vowels = {'A','E','I','O','U'};
         char letravocal = 0;
        for (int a = letters.length - 1; a>=1; a--)
@@ -39,7 +39,7 @@ public class Operador {
        curp+=letravocal;
        
        
-        
+        //la primera letra del apellido materno 3/18
         lastnameMom = lastnameMom.toUpperCase().replace(" ", "");
         char [] letter = lastnameMom.toCharArray();
         curp += letter[0];
@@ -47,6 +47,8 @@ public class Operador {
             lastnameMom="X";
             curp+=lastnameMom;
         }
+        
+        //letra del nombre 4/18
        name = name.toUpperCase().trim().toUpperCase()
                .replace("!", " ").replace("#", "").replace(">", "")
                .replace("$", "").replace("%", "").replace("&", "")
@@ -62,7 +64,7 @@ public class Operador {
 char[] lettername = name.toCharArray();
         curp+=lettername[0];
         
-        
+        //año de nacimiento 6/18
         yearborn = yearborn.toUpperCase().replace(" ", "").replace("!", " ").replace("#", "").replace(">", "")
                .replace("$", "").replace("%", "").replace("&", "")
                .replace("/", "").replace("(", "").replace(")", "")
@@ -86,6 +88,7 @@ char[] lettername = name.toCharArray();
         curp+=years [2];
         curp+=years [3];
         
+        //mes de nacimiento 8/16
         monthborn = monthborn.toUpperCase().replace(" ", "").replace("!", " ").replace("#", "").replace(">", "")
                .replace("$", "").replace("%", "").replace("&", "")
                .replace("/", "").replace("(", "").replace(")", "")
@@ -109,6 +112,7 @@ char[] lettername = name.toCharArray();
         curp+=months [0];
         curp+=months [1];
         
+        //dia de nacimiento 10/18
         dayborn = dayborn.replace(" ", "").toUpperCase().replace(" ", "").replace("!", " ").replace("#", "").replace(">", "")
                .replace("$", "").replace("%", "").replace("&", "")
                .replace("/", "").replace("(", "").replace(")", "")
@@ -131,7 +135,7 @@ char[] lettername = name.toCharArray();
        int day = Integer.parseInt(dayborn);
        curp += day;
        
-       //GENERO
+       //GENERO 12/16
        if(gender.startsWith("H")){
            curp+="H";
            
@@ -139,7 +143,7 @@ char[] lettername = name.toCharArray();
            curp+="M";
            
        }
-           //ESTADO Y ENTIDAD
+           //ESTADO Y/o ENTIDAD fereativa 14/18 letras de la curp
            
            if (state.equals("AGUASCALIENTES")){
            curp += "AS";
@@ -216,7 +220,7 @@ char[] lettername = name.toCharArray();
        if (state.equals("SINALOA")){
            curp += "SL";
        }
-       if (state.equals("Sonora")){
+       if (state.equals("SONORA")){
            curp += "SR";
        }
        if (state.equals("TABASCO")){
@@ -241,7 +245,7 @@ char[] lettername = name.toCharArray();
            curp += "NE";
        }
        
-       //CONSONANTE apellido paterno
+       //CONSONANTE apellido paterno 15/18
        
        char [] consonants = {'B' ,'C' ,'D' ,'F' ,'G' ,'H' ,'J' ,'K' ,'L' ,'M' ,'N' ,'Ñ' ,'P' ,'Q' ,'R' ,'S' ,'T' ,'V' ,'X' ,'Z' ,'W' ,'Y'};
        char letterConsonant=0;
@@ -256,7 +260,7 @@ char[] lettername = name.toCharArray();
        
        curp+=letterConsonant;
        
-        //CONSONANTE APELLIDO MATERNO
+        //CONSONANTE APELLIDO MATERNO 16/18
         char lettercon = 0;
         for (int i = letter.length - 1; i >= 1; i--) 
             for (int a = consonants.length - 1; a >= 0; a--) {
@@ -269,7 +273,7 @@ char[] lettername = name.toCharArray();
 
         
         
-        //consonante del nombre
+        //consonante del nombre 17/18
         
         String fullname;
         if(name.contains("JOSE")){
@@ -293,6 +297,8 @@ char[] lettername = name.toCharArray();
                 curp+=numConsonants;
             
         }
+        
+        // determinante milenio 18/18
         int year = Integer.parseInt(yearborn);
         int limit = 2000;
         if(limit<=year){
