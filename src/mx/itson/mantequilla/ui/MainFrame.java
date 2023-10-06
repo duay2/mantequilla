@@ -4,6 +4,8 @@
  */
 package mx.itson.mantequilla.ui;
 
+import mx.itson.mantequilla.entities.Operador;
+
 /**
  *
  * @author aldop
@@ -15,6 +17,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -31,7 +34,6 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnBuscar = new javax.swing.JButton();
         cmbEstado = new javax.swing.JComboBox<>();
-        cmbSexo1 = new javax.swing.JComboBox<>();
         txtNombre = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -44,9 +46,11 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        cmbDia = new javax.swing.JComboBox<>();
-        cmbMes = new javax.swing.JComboBox<>();
         txtAnio = new javax.swing.JTextField();
+        txf_dayBorn = new javax.swing.JTextField();
+        txf_monthBorn = new javax.swing.JTextField();
+        lblCurp = new javax.swing.JLabel();
+        cmbSex = new javax.swing.JComboBox<>();
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
@@ -72,6 +76,11 @@ public class MainFrame extends javax.swing.JFrame {
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mx/itson/mantequilla/img/lupa.png"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.setBorder(new javax.swing.border.MatteBorder(null));
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         cmbEstado.setBackground(new java.awt.Color(204, 204, 204));
         cmbEstado.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
@@ -81,15 +90,6 @@ public class MainFrame extends javax.swing.JFrame {
         cmbEstado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cmbEstado.setKeySelectionManager(null);
         cmbEstado.setName(""); // NOI18N
-
-        cmbSexo1.setBackground(new java.awt.Color(204, 204, 204));
-        cmbSexo1.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        cmbSexo1.setForeground(new java.awt.Color(0, 0, 0));
-        cmbSexo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hombre", "Mujer" }));
-        cmbSexo1.setToolTipText("");
-        cmbSexo1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        cmbSexo1.setKeySelectionManager(null);
-        cmbSexo1.setName(""); // NOI18N
 
         txtNombre.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(0, 0, 0));
@@ -166,24 +166,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Sexo");
 
-        cmbDia.setBackground(new java.awt.Color(204, 204, 204));
-        cmbDia.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        cmbDia.setForeground(new java.awt.Color(0, 0, 0));
-        cmbDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-        cmbDia.setToolTipText("");
-        cmbDia.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        cmbDia.setKeySelectionManager(null);
-        cmbDia.setName(""); // NOI18N
-
-        cmbMes.setBackground(new java.awt.Color(204, 204, 204));
-        cmbMes.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        cmbMes.setForeground(new java.awt.Color(0, 0, 0));
-        cmbMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
-        cmbMes.setToolTipText("");
-        cmbMes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        cmbMes.setKeySelectionManager(null);
-        cmbMes.setName(""); // NOI18N
-
         txtAnio.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         txtAnio.setForeground(new java.awt.Color(0, 0, 0));
         txtAnio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -197,40 +179,69 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        txf_dayBorn.setForeground(new java.awt.Color(0, 0, 0));
+        txf_dayBorn.setText("Ingresa tu dia de nacimiento");
+        txf_dayBorn.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txf_dayBornFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txf_dayBornFocusLost(evt);
+            }
+        });
+
+        txf_monthBorn.setForeground(new java.awt.Color(0, 0, 0));
+        txf_monthBorn.setText("Ingresa tu mes de nacimiento a dos digitos");
+        txf_monthBorn.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txf_monthBornFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txf_monthBornFocusLost(evt);
+            }
+        });
+
+        lblCurp.setBackground(new java.awt.Color(51, 255, 255));
+        lblCurp.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        lblCurp.setForeground(new java.awt.Color(0, 0, 0));
+        lblCurp.setText("CURP");
+        lblCurp.setOpaque(true);
+
+        cmbSex.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hombre", "Mujer" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel10)
-                            .addComponent(cmbSexo1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbMes, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(47, 47, 47)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPrimerApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel9)
-                            .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbDia, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(106, 106, 106)))
+                        .addGap(106, 106, 106))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblCurp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtNombre)
+                                .addComponent(jLabel2)
+                                .addComponent(txtSegundoApellido)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel10)
+                                .addComponent(txf_monthBorn)
+                                .addComponent(cmbSex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(47, 47, 47)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtPrimerApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel9)
+                                .addComponent(cmbEstado, 0, 192, Short.MAX_VALUE)
+                                .addComponent(txtAnio, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                                .addComponent(txf_dayBorn)))))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -253,26 +264,28 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbDia, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                    .addComponent(txf_dayBorn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbMes, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                    .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txf_monthBorn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbSexo1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(75, 75, 75)
+                    .addComponent(cmbSex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(62, 62, 62)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addGap(18, 18, 18)
+                .addComponent(lblCurp)
+                .addGap(35, 35, 35))
         );
 
         cmbEstado.getAccessibleContext().setAccessibleName("");
@@ -290,18 +303,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusGained
-        // cambia a null el texto cuando se da click en el textfiel
-        txtNombre.setText("");
-    }//GEN-LAST:event_txtNombreFocusGained
-
-    private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
-        //cambia de nuevo el texto si el usuario no agrego nada
-        if (txtNombre.getText().isEmpty()) {
-                    txtNombre.setText("Ingresa tu nombre(s)");
-                }
-    }//GEN-LAST:event_txtNombreFocusLost
 
     private void txtPrimerApellidoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrimerApellidoFocusGained
         txtPrimerApellido.setText("");
@@ -335,6 +336,57 @@ public class MainFrame extends javax.swing.JFrame {
                     txtAnio.setText("Ingresa el año Ej.1998");
                 }
     }//GEN-LAST:event_txtAnioFocusLost
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        String name=txtNombre.getText();
+        String lastNameDad=txtPrimerApellido.getText();
+        String lastNameMom=txtSegundoApellido.getText();
+        String day=txf_dayBorn.getText();
+        String month=txf_monthBorn.getText();
+        String year = txtAnio.getText();
+        String gender=(String) cmbSex.getSelectedItem();
+        String state = (String) cmbEstado.getSelectedItem();
+        
+        Operador operador = new Operador();
+       lblCurp.setText(operador.SacarCurp(lastNameDad, lastNameMom, name, day, month, year, gender, state));
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
+        //cambia de nuevo el texto si el usuario no agrego nada
+        if (txtNombre.getText().isEmpty()) {
+            txtNombre.setText("Ingresa tu nombre(s)");
+        }
+    }//GEN-LAST:event_txtNombreFocusLost
+
+    private void txtNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusGained
+        // cambia a null el texto cuando se da click en el textfiel.
+        txtNombre.setText("");
+    }//GEN-LAST:event_txtNombreFocusGained
+
+    private void txf_dayBornFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txf_dayBornFocusGained
+        // TODO add your handling code here:
+         txf_dayBorn.setText("");
+    }//GEN-LAST:event_txf_dayBornFocusGained
+
+    private void txf_dayBornFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txf_dayBornFocusLost
+        // TODO add your handling code here:
+        if (txf_dayBorn.getText().isEmpty()) {
+            txf_dayBorn.setText("Ingresa tu dia de nacimiento");
+        }
+    }//GEN-LAST:event_txf_dayBornFocusLost
+
+    private void txf_monthBornFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txf_monthBornFocusGained
+        // TODO add your handling code here:
+        txf_monthBorn.setText("");
+    }//GEN-LAST:event_txf_monthBornFocusGained
+
+    private void txf_monthBornFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txf_monthBornFocusLost
+        // TODO add your handling code here:
+        if (txf_monthBorn.getText().isEmpty()) {
+            txf_monthBorn.setText("Ingresa tu mes de nacimiento a dos digitos");
+        }
+    }//GEN-LAST:event_txf_monthBornFocusLost
 
     /**
      * @param args the command line arguments
@@ -373,11 +425,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JComboBox<String> cmbDia;
     private javax.swing.JComboBox<String> cmbEstado;
     private javax.swing.JComboBox<String> cmbEstado1;
-    private javax.swing.JComboBox<String> cmbMes;
-    private javax.swing.JComboBox<String> cmbSexo1;
+    private javax.swing.JComboBox<String> cmbSex;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -389,6 +439,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblCurp;
+    private javax.swing.JTextField txf_dayBorn;
+    private javax.swing.JTextField txf_monthBorn;
     private javax.swing.JTextField txtAnio;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrimerApellido;
