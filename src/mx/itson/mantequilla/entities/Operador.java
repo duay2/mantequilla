@@ -12,7 +12,7 @@ public class Operador {
     
     public String SacarCurp(String lastnameDad, String lastnameMom, String name, String dayborn, String monthborn, String yearborn, String gender, String state){
         String curp="";
-        //SACAR LAS LETRAS DEL APELLIDO PATERNO(2 PRIMERAS LETRAS DE 18)
+        //SACAR LAS LETRAS DEL APELLIDO PATERNO(2 PRIMERAS LETRAS DE 18).
         lastnameDad = lastnameDad.toUpperCase().trim().toUpperCase()
                .replace("!", " ").replace("#", "").replace(">", "")
                .replace("$", "").replace("%", "").replace("&", "")
